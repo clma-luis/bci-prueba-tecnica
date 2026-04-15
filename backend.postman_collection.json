@@ -1,0 +1,38 @@
+{
+  "info": {
+    "_postman_id": "7fe8a690-8d47-4ad7-8c8d-03fd48ecec15",
+    "name": "backend",
+    "description": "Prueba del endpoint BFF para clima + bitcoin",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "13231670"
+  },
+  "item": [
+    {
+      "name": "Get Dashboard Widget",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/dashboard/widget?city=Lima",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "dashboard",
+            "widget"
+          ],
+          "query": [
+            {
+              "key": "city",
+              "value": "Lima"
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
