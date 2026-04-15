@@ -30,7 +30,6 @@ export class DashboardService {
       this.fetchBitcoinPrice(),
     ]);
 
-    // 🔥 manejo resiliente
     const temperature =
       weatherResult.status === 'fulfilled'
         ? weatherResult.value.temperature
