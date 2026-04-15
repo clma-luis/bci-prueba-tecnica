@@ -1,0 +1,36 @@
+services:
+
+  backend:
+    container_name: backend
+    build: ./backend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    env_file:
+      - ./backend/.env
+
+  dashboard-mf:
+    container_name: dashboard-mf
+    build: ./microfrontends/bci-dashboard-mf
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./microfrontends/bci-dashboard-mf:/app
+      - /app/node_modules
+    environment:
+      - VITE_API_URL=http://localhost:3000
+    depends_on:
+      - backend
+
+  root-config:
+    container_name: root-config
+    build: ./microfrontends/bci-root-config 
+    ports:
+      - "9000:9000"
+    volumes:
+      - ./microfrontends/bci-root-config:/app
+      - /app/node_modules
+    depends_on:
+      - dashboard-mf

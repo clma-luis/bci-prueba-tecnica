@@ -1,46 +1,74 @@
-You are a senior NestJS developer.
+# 🧠 bci-backend (BFF)
 
-Now I want you to generate a clean and minimal implementation for a Backend-for-Frontend (BFF).
+Backend-for-Frontend (BFF) encargado de centralizar y transformar datos provenientes de APIs externas (clima y Bitcoin) para ser consumidos por el frontend.
 
-Requirements:
+---
 
-* Create a module called "dashboard"
-* It must include:
+# 🚀 Tecnologías utilizadas
 
-  * Controller
-  * Service
-  * DTOs
+- Node.js
+- NestJS
+- Axios / HttpModule
+- TypeScript
+- Docker
 
-Endpoint:
-GET /api/dashboard-widget?city=Lima
+---
 
-Behavior:
+# 🧠 Descripción
 
-* The service should:
+Este servicio implementa un patrón **BFF (Backend-for-Frontend)** que:
 
-  * Call a Weather API (OpenWeather)
-  * Call a Bitcoin API (CoinGecko)
-  * Use native fetch (no axios)
-  * Use Promise.all for parallel requests
-* Transform the response into:
-  {
-  city: string;
-  temperature: number;
-  weather: string;
-  bitcoinPriceUSD: number;
-  }
+- Consume APIs externas:
+  - 🌤 Clima (OpenWeather / WeatherAPI)
+  - ₿ Precio de Bitcoin (CoinGecko / CoinDesk)
+- Combina ambas respuestas
+- Devuelve un JSON simplificado para el frontend
 
-Constraints:
+---
 
-* Keep the code simple and readable
-* Do NOT overengineer (no extra modules like weather/crypto)
-* Include basic error handling (HttpException)
-* Use DTOs for query validation
-* No caching, no retries, no advanced patterns
+# 🎯 Endpoint principal
 
-Output:
+```bash
+GET /api/dashboard/widget?city=Lima
+```
 
-* Full module structure
-* Controller code
-* Service code
-* DTOs
+---
+
+# Ejemplo de respuesta
+
+{
+  "city": "Lima",
+  "temperature": 22,
+  "weather": "Cloudy",
+  "bitcoinPriceUSD": 65000
+}
+
+---
+
+# Rol en la arquitectura
+
+Frontend (dashboard-mf)
+        ↓
+Backend (BFF - NestJS)
+        ↓
+[API Clima + API Bitcoin]
+
+---
+
+# Requisitos
+Node.js 18+ (recomendado 20)
+npm
+
+## 🔌 Variables de entorno
+
+Crear un archivo `.env` en la raíz del backend con las siguientes variables:
+
+```env
+PORT=3000
+
+# API Bitcoin (CoinGecko)
+COINGECKO_BASE_URL=https://api.coingecko.com/api/v3
+
+# API Clima (OpenWeatherMap)
+OPENWEATHERMAP_BASE_URL=https://api.openweathermap.org/data/2.5
+OPENWEATHERMAP_API_KEY=your_api_key_here
